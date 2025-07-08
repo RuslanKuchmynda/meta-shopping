@@ -6,13 +6,18 @@ import { Product } from "@/types/type";
 import { useWishlist } from "../../../../services/whishlistcontext";
 
 interface ProductCardProps {
-  product: Product;
+  product: Product & {
+    highlightedName?: React.ReactNode;
+    highlightedCompany?: React.ReactNode;
+  };
   onTryNow: (product: Product) => void;
+  searchTerm?: string;
 }
 
 export const Productcard: React.FC<ProductCardProps> = ({
   product,
   onTryNow,
+  searchTerm,
 }) => {
   const [isWishlist, setIsWishlist] = useState(false);
   const { addToWishlist, removeFromWishlist } = useWishlist();
@@ -41,7 +46,7 @@ export const Productcard: React.FC<ProductCardProps> = ({
             translateZ="50"
             className="text-2xl font-bold text-neutral-600 dark:text-white"
           >
-            {product.name}
+            {product.highlightedName || product.name}
           </CardItem>
           <CardItem translateZ={20} as="button" onClick={handleWishlistClick}>
             <svg
@@ -60,6 +65,15 @@ export const Productcard: React.FC<ProductCardProps> = ({
             </svg>
           </CardItem>
         </div>
+        {product.highlightedCompany && (
+          <CardItem
+            as="p"
+            translateZ="55"
+            className="text-neutral-400 text-sm font-medium max-w-sm mt-1 dark:text-[#ffff6d80]"
+          >
+            {product.highlightedCompany}
+          </CardItem>
+        )}
 
         <CardItem
           as="p"
@@ -111,7 +125,7 @@ export const Productcard: React.FC<ProductCardProps> = ({
           <CardItem
             translateZ={20}
             as="button"
-            onClick={handleBuyNow}  
+            onClick={handleBuyNow}
             className="rounded-md px-2 py-1 md:py-2 md:px-4 bg-[#F8F872] text-black hover:bg-[#ffff6db1] group-hover/card:shadow-sm text-md font-bold"
           >
             Buy Now

@@ -6,8 +6,8 @@
     "build": "next build",
     "start": "next dev",
     "dev": "next dev",
-    "predev": "start http://localhost:3000/",
-    "prestart": "start http://localhost:3000/",
+    "predev": "open http://localhost:3000/",
+    "prestart": "open http://localhost:3000/",
     "lint": "next lint"
   },
   "dependencies": {
